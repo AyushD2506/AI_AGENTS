@@ -1,0 +1,15 @@
+{
+    "mcpServers": {
+      "crypto_currency": {
+        "command": "uv",
+        "args": [
+          "run",
+          "--with",
+          "mcp[cli]",
+          "mcp",
+          "run",
+          "C:\\Users\\DC\\Desktop\\MCP_AGENTS\\crypto_mcp_agent\\server\\crypto_currency.py"
+        ]
+      }
+    }
+  }
