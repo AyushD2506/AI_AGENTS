@@ -24,6 +24,7 @@ langchain-community==0.3.22
 langchain-core==0.3.56
 langchain-text-splitters==0.3.8
 langsmith==0.3.37
+Markdown==3.8
 marshmallow==3.26.1
 mcp==1.6.0
 mcp-use==1.2.8
