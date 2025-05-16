@@ -5,10 +5,13 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "agno>=1.5.0",
     "beautifulsoup4>=4.13.4",
     "duckduckgo-search==6.3.4",
     "fastembed>=0.6.1",
     "gradio>=5.27.0",
+    "groq>=0.23.1",
+    "ipykernel>=6.29.5",
     "langchain-experimental>=0.3.4",
     "langchain-groq>=0.3.2",
     "langgraph>=0.3.34",
