@@ -8,7 +8,7 @@ def load_users():
     with open(USER_DB, "r") as f:
         return json.load(f)
 def save_users(users):
-    os.makedirs(os.path.dirname(USER_DB), exist_ok=True)  # Ensure the auth/ directory exists
+    os.makedirs(os.path.dirname(USER_DB), exist_ok=True)  
     with open(USER_DB, "w") as f:
         json.dump(users, f, indent=4)
 
