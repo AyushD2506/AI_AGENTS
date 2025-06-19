@@ -2,7 +2,6 @@ import os
 import re
 import streamlit as st
 from typing import TypedDict
-
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
@@ -14,7 +13,9 @@ try:
 except Exception:
     from dotenv import load_dotenv
     load_dotenv()
-    api_key = os.getenv("GROQ_API_KEY")  # Local fallback
+    api_key = os.getenv("GROQ_API_KEY")
+st.sidebar.markdown("🔑 **API Key Loaded:** " + ("✅" if api_key else "❌"))
+  # Local fallback
 model ="llama-3.3-70b-versatile"
 
 # Essay input
