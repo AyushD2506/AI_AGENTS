@@ -18,7 +18,12 @@ from urllib.parse import quote
 import streamlit.components.v1 as components
 import os
 
-api_key = os.getenv("GROQ_API_KEY")
+try:
+    api_key = st.secrets["GROQ_API_KEY"]  # For Streamlit Cloud
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv("GROQ_API_KEY")
 # Page configuration
 st.set_page_config(
     page_title="AI Voice Agent Pro", 
@@ -440,10 +445,9 @@ def main():
         st.header("⚙️ Configuration")
         
         # API Key input
-        api_key = api_key
         
         if api_key:
-            st.session_state.groq_api_key = "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"
+            st.session_state.groq_api_key = api_key
                
         st.divider()
         

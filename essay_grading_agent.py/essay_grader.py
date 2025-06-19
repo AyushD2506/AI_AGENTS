@@ -14,7 +14,6 @@ except Exception:
     from dotenv import load_dotenv
     load_dotenv()
     api_key = os.getenv("GROQ_API_KEY")
-st.sidebar.markdown("🔑 **API Key Loaded:** " + ("✅" if api_key else "❌"))
   # Local fallback
 model ="llama-3.3-70b-versatile"
 

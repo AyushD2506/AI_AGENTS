@@ -8,8 +8,12 @@ import os
 # Load .env file
 # load_dotenv
 import os
-
-api_key = os.getenv("GROQ_API_KEY")
+try:
+    api_key = st.secrets["GROQ_API_KEY"]  # For Streamlit Cloud
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv("GROQ_API_KEY")
 # API Key - Replace with your actual Groq API key
 # api_key = api_key
 
@@ -48,9 +52,7 @@ with st.sidebar:
     markdown_output = st.checkbox("Markdown Output", value=True)
 
 # Main content area
-if api_key == "YOUR_GROQ_API_KEY_HERE":
-    st.warning("⚠️ Please replace 'YOUR_GROQ_API_KEY_HERE' with your actual Groq API key in the code.")
-    st.stop()
+
 
 # Initialize session state
 if 'agent' not in st.session_state:

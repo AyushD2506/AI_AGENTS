@@ -12,8 +12,12 @@ from pathlib import Path
 import hashlib
 import os
 
-api_key_1 = os.getenv("GROQ_API_KEY")
-print("API Key:", api_key_1)
+try:
+    api_key = st.secrets["GROQ_API_KEY"]  # For Streamlit Cloud
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv("GROQ_API_KEY")
 # Configuration
 st.set_page_config(
     page_title="MindWell - Your Mental Health Companion",
@@ -25,7 +29,7 @@ st.set_page_config(
 # Initialize Groq client (you'll need to add your API key)
 def init_groq_client():
     # Replace with your actual Groq API key
-    return Groq(api_key=api_key_1)
+    return Groq(api_key=api_key)
 
 # Data management functions
 def get_user_data_path(username):

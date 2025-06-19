@@ -16,8 +16,12 @@ from typing import List, Tuple, Dict
 
 import os
 
-api_key = os.getenv("GROQ_API_KEY")
-print("API Key:", api_key)
+try:
+    api_key = st.secrets["GROQ_API_KEY"]  # For Streamlit Cloud
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv("GROQ_API_KEY")
 # Configure page
 st.set_page_config(
     page_title="🔥 Meme Generator Pro - AI Comedy Engine",
@@ -359,18 +363,9 @@ with st.sidebar:
     
     # API Configuration
     st.subheader("🔑 AI Engine")
-    groq_api_key = st.text_input(
-        "Groq API Key", 
-        type="password",
-        help="Get your free API key from console.groq.com"
-    )
     
-    if groq_api_key:
-        try:
-            st.session_state.groq_client = Groq(api_key=api_key)
-            st.success("🚀 AI Engine Online!")
-        except Exception as e:
-            st.error(f"❌ Connection failed: {str(e)}")
+    
+   
     
     # Vision Model
     vision_model = st.selectbox(

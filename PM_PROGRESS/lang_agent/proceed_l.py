@@ -14,7 +14,13 @@ from langchain_groq import ChatGroq
 from langchain.schema import HumanMessage, SystemMessage
 from langchain.prompts import ChatPromptTemplate
 
-GROQ_API_KEY = "YOUR_API_KEY"
+try:
+    api_key = st.secrets["GROQ_API_KEY"]  # For Streamlit Cloud
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv("GROQ_API_KEY")
+GROQ_API_KEY = api_key
 MODEL_NAME = "meta-llama/llama-4-scout-17b-16e-instruct"
 VISION_MODEL_NAME = "meta-llama/llama-4-scout-17b-16e-instruct"  
 

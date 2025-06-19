@@ -26,6 +26,9 @@ from langgraph.graph import StateGraph, END
 import operator
 import json
 from datetime import datetime
+import os
+
+api_key = os.getenv("GROQ_API_KEY")
 
 # Configure Streamlit page
 st.set_page_config(
@@ -394,11 +397,7 @@ def main():
     # Sidebar for configuration
     with st.sidebar:
         st.header("Configuration")
-        groq_api_key = st.text_input(
-            "Groq API Key",
-            type="password",
-            help="Enter your Groq API key to use the ChatGroq model"
-        )
+        groq_api_key = api_key
         
         st.markdown("---")
         st.markdown("### About This App")

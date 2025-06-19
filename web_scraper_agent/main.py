@@ -10,7 +10,12 @@ from urllib.parse import urlparse, urljoin
 import time
 import os
 
-api_key = os.getenv("GROQ_API_KEY")
+try:
+    api_key = st.secrets["GROQ_API_KEY"]  # For Streamlit Cloud
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv("GROQ_API_KEY")
 # Page configuration
 st.set_page_config(
     page_title="Smart Web Summarizer Agent",
