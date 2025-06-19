@@ -9,7 +9,10 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain.schema import HumanMessage, AIMessage
 import hashlib
 import json
+import os
 
+api_key = os.getenv("GROQ_API_KEY")
+print("API Key:", api_key)
 # Set page config
 st.set_page_config(
     page_title="Enhanced Data Analysis Assistant",
@@ -157,7 +160,7 @@ with st.sidebar:
 
             if True:  # Always true since API key is hardcoded
                 llm = ChatGroq(
-                    api_key="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",
+                    api_key="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",
                     model_name=model_name,
                     temperature=0.1  # Lower temperature for more consistent analysis
                 )
