@@ -9,20 +9,13 @@ from langchain_core.prompts import ChatPromptTemplate
 from langgraph.graph import StateGraph, END
 
 # Load from .env for fallback
-import os
-api_key = os.getenv("GROQ_API_KEY")
-print("API Key:", api_key)
-
-# Sidebar: User input for API key and model
-st.sidebar.title("🔐 Configuration")
-api_key = api_key 
-model = st.sidebar.selectbox("Select Groq Model", [
-    "llama-3-8b-instruct",
-    "llama-3-70b-instruct",
-    "llama-3-8b-8192",
-    "llama-3-70b-8192",
-    "llama-3.3-70b-versatile"
-])
+try:
+    api_key = st.secrets["GROQ_API_KEY"]  # For Streamlit Cloud
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv("GROQ_API_KEY")  # Local fallback
+model ="llama-3.3-70b-versatile"
 
 # Essay input
 st.title("📄 Essay Grader using LLMs")
