@@ -10,7 +10,10 @@ import time
 import random
 from pathlib import Path
 import hashlib
+import os
 
+api_key_1 = os.getenv("GROQ_API_KEY")
+print("API Key:", api_key_1)
 # Configuration
 st.set_page_config(
     page_title="MindWell - Your Mental Health Companion",
@@ -22,8 +25,7 @@ st.set_page_config(
 # Initialize Groq client (you'll need to add your API key)
 def init_groq_client():
     # Replace with your actual Groq API key
-    api_key = "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"
-    return Groq(api_key=api_key)
+    return Groq(api_key=api_key_1)
 
 # Data management functions
 def get_user_data_path(username):

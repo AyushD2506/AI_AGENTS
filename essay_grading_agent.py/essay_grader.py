@@ -9,11 +9,13 @@ from langchain_core.prompts import ChatPromptTemplate
 from langgraph.graph import StateGraph, END
 
 # Load from .env for fallback
-load_dotenv()
+import os
+api_key = os.getenv("GROQ_API_KEY")
+print("API Key:", api_key)
 
 # Sidebar: User input for API key and model
 st.sidebar.title("🔐 Configuration")
-api_key = st.sidebar.text_input("Enter your GROQ API Key", type="password")
+api_key = api_key 
 model = st.sidebar.selectbox("Select Groq Model", [
     "llama-3-8b-instruct",
     "llama-3-70b-instruct",

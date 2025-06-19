@@ -14,6 +14,10 @@ import random
 import re
 from typing import List, Tuple, Dict
 
+import os
+
+api_key = os.getenv("GROQ_API_KEY")
+print("API Key:", api_key)
 # Configure page
 st.set_page_config(
     page_title="🔥 Meme Generator Pro - AI Comedy Engine",
@@ -363,7 +367,7 @@ with st.sidebar:
     
     if groq_api_key:
         try:
-            st.session_state.groq_client = Groq(api_key="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")
+            st.session_state.groq_client = Groq(api_key=api_key)
             st.success("🚀 AI Engine Online!")
         except Exception as e:
             st.error(f"❌ Connection failed: {str(e)}")
@@ -922,7 +926,15 @@ def create_professional_meme(image: Image.Image, caption: Tuple[str, str],
         meme_img.paste(overlay, (wm_x - 5, wm_y - 3), overlay)
         
         draw.text((wm_x, wm_y), wm_text, font=wm_font, fill="#FFFFFF")
-    
+    custom_objects = st.session_state.get("custom_text_positions", [])
+    for obj in custom_objects:
+        if obj.get("type") == "text":
+            text = obj.get("text", "")
+            left = int(obj.get("left", 0))
+            top = int(obj.get("top", 0))
+
+            # Reuse the draw_enhanced_text method
+            draw_enhanced_text(text.upper(), left, top, effects)
     return meme_img
 
 # Main interface
@@ -948,7 +960,40 @@ with col1:
         st.markdown('<div class="preview-container">', unsafe_allow_html=True)
         st.image(st.session_state.uploaded_image, caption="Ready for Meme Transformation", use_column_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
-        
+        from streamlit_drawable_canvas import st_canvas
+
+        st.subheader("✏️ Drag & Drop Text Anywhere")
+
+        # Set drawing canvas dimensions
+        canvas_width = st.session_state.uploaded_image.width
+        canvas_height = st.session_state.uploaded_image.height
+
+        # Choose custom text
+        user_text = st.text_input("Enter Meme Text to Place Anywhere", "Type something funny!")
+
+        # Display canvas
+        canvas_result = st_canvas(
+            fill_color="rgba(255, 255, 255, 0.0)",  # Transparent fill
+            stroke_width=0,
+            background_image=st.session_state.uploaded_image,
+            update_streamlit=True,
+            height=canvas_height,
+            width=canvas_width,
+            drawing_mode="text",
+            key="canvas_editor",
+            initial_drawing=[{
+                "type": "text",
+                "left": 50,
+                "top": 50,
+                "text": user_text,
+                "font": {"size": 30}
+            }]
+        )
+
+        # Save the custom placed text for rendering
+        if canvas_result.json_data is not None and "objects" in canvas_result.json_data:
+            st.session_state.custom_text_positions = canvas_result.json_data["objects"]
+
         # Show analysis insights
         st.markdown(f"""
         <div class="analysis-box">

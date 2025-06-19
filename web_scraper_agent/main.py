@@ -8,7 +8,9 @@ from typing import Dict, List, Optional
 import re
 from urllib.parse import urlparse, urljoin
 import time
+import os
 
+api_key = os.getenv("GROQ_API_KEY")
 # Page configuration
 st.set_page_config(
     page_title="Smart Web Summarizer Agent",
@@ -353,12 +355,7 @@ with st.sidebar:
     st.header("⚙️ Configuration")
     
     # API Key input
-    groq_api_key = st.text_input(
-        "🔑 Groq API Key",
-        type="password",
-        help="Enter your Groq API key to access LLaMA 3.3 70B",
-        placeholder="gsk_..."
-    )
+    groq_api_key =api_key
     
     if groq_api_key:
         st.markdown('<div class="success-box">✅ API Key configured</div>', unsafe_allow_html=True)
